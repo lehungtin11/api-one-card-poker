@@ -40,7 +40,7 @@ class CardControllers {
             Promise.all([myDeck.findOne({_id:id})])
             .then(([deck]) => {
                 const count = deck.cards.length
-                res.render('home',{
+                res.json({
                     success: true,
                     shuffle: true,
                     remaining: count,
@@ -84,7 +84,7 @@ class CardControllers {
           });
         myDeck.findOne({_id: id})
         .then((data) => {
-            res.render('home',{
+            res.json({
                 success: true,
                 shuffle: true,
                 deck_Id: data._id,
@@ -111,7 +111,7 @@ class CardControllers {
         .then(([count, deckId]) => {
             if(count <= 1) {
                 // DELETE THIS TO UPLOAD API ONLINE
-                return res.render('home',{
+                return res.json({
                     success: false,
                     deck_Id: deckId._id,
                     cards:[],
@@ -140,7 +140,7 @@ class CardControllers {
                 })
                 deck.save()
                 const remaining = count - cards.length
-                res.render('home',{
+                res.json({
                     success: true,
                     deck_Id: deck._id,
                     cards,
